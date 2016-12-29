@@ -14,7 +14,7 @@ class Protractor {
     }
     app.use(express.static(root));
     app.use(history('index.html', { root }));
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let server = app.listen(port, () => {
         resolve(server);
       });
@@ -28,10 +28,10 @@ class Protractor {
 export = (done: any) => {
   process.env.LANG = 'en_US.UTF-8';
   new Protractor()
-    .server(Config.PORT, Config.PROD_DEST)
+    .server(Config.PORT, Config.PROD_CLIENT_DEST)
     .then((server: any) => {
       gulp
-        .src(join(Config.DEV_DEST, '**/*.e2e-spec.js'))
+        .src(join(Config.DEV_CLIENT_DEST, '**/*.e2e-spec.js'))
         .pipe(protractor({ configFile: 'protractor.conf.js' }))
         .on('error', (error: string) => { throw error; })
         .on('end', () => { server.close(done); });

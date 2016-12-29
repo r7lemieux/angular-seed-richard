@@ -15,7 +15,6 @@ export = (done: any) => {
   let cleanTools = require('./clean.tools');
 
   let rebuild = false;
-
   try {
     fs.accessSync(checkFile, fs.F_OK);
     util.log('Gulpfile has previously been compiled, rebuilding toolchain');

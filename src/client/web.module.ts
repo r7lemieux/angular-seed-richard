@@ -14,6 +14,7 @@ import { TranslateLoader } from 'ng2-translate';
 
 // app
 import { APP_COMPONENTS, AppComponent } from './app/components/index';
+
 import { routes } from './app/components/app.routes';
 
 // feature modules

@@ -10,7 +10,7 @@ import { ConfigService } from 'ng2-config';
 import { AnalyticsService } from '../frameworks/analytics/index';
 import { MultilingualService } from '../frameworks/i18n/index';
 import { BaseComponent, Config, LogService } from '../frameworks/core/index';
-
+import { NavbarComponent } from '../shared/navbar/index';
 /**
  * This class represents the main application component.
  */
@@ -18,6 +18,7 @@ import { BaseComponent, Config, LogService } from '../frameworks/core/index';
   moduleId: module.id,
   selector: 'sd-app',
   templateUrl: 'app.component.html',
+  declarations: [NavbarComponent],
   changeDetection: ChangeDetectionStrategy.Default // Everything else uses OnPush
 })
 export class AppComponent implements OnInit {

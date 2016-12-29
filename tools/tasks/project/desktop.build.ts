@@ -6,12 +6,13 @@ import Config from '../../config';
 
 export = () => {
   let src = [
-    join(Config.APP_SRC, 'package.json')
+    join(Config.APP_CLIENT_SRC, 'package.json')
   ];
+  console.log('138 Config.APP_CLIENT_DEST ' + Config.APP_CLIENT_DEST);
   return gulp.src(src)
     .pipe(newer({
-      dest: Config.APP_DEST,
-      map: function(path: String) { return path.replace('.ts', '.js').replace('.scss', '.css'); }
+      dest: Config.APP_CLIENT_DEST,
+      map: function(path: String) { return path.replace('.ts', '.js').replace('.sccs', '.css'); }
     }))
-    .pipe(gulp.dest(Config.APP_DEST));
+    .pipe(gulp.dest(Config.APP_CLIENT_DEST));
 };
