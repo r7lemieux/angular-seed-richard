@@ -4,7 +4,9 @@
     "build.assets.dev",
     "build.html_css",
     "build.js.dev",
-    "build.index.dev"
+    "build.index.dev",
+    "build.server.dev",
+    "copy.server.assets"
   ],
 
   "build.dev.watch": [
@@ -15,7 +17,9 @@
   "build.e2e": [
     "clean.e2e",
     "tslint",
-    "build.js.e2e"
+    "build.js.e2e",
+    "build.server.dev",
+    "copy.server.assets"
   ],
 
   "build.prod": [
@@ -25,11 +29,14 @@
     "build.assets.prod",
     "build.html_css",
     "copy.prod",
+    "copy.server.js.prod",
+    "build.server.prod",
     "build.js.prod",
     "build.bundles",
     "build.bundles.app",
     "minify.bundles",
-    "build.index.prod"
+    "build.index.prod",
+    "copy.server.assets"
   ],
 
   "build.prod.exp": [
@@ -39,12 +46,16 @@
     "build.assets.prod",
     "build.html_css",
     "copy.prod",
+    "copy.server.js.prod",
+    "build.server.prod",
     "compile.ahead.prod",
     "build.js.prod.exp",
     "build.bundles",
     "build.bundles.app.exp",
     "minify.bundles",
-    "build.index.prod"
+    "build.index.prod",
+    "build.server.prod",
+    "copy.server.assets"
   ],
 
   "build.test": [
@@ -52,7 +63,9 @@
     "build.html_css",
     "build.js.dev",
     "build.js.test",
-    "build.index.dev"
+    "build.index.dev",
+    "build.server.prod",
+    "copy.server.assets"
   ],
 
   "test.watch": [

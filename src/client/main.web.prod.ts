@@ -3,13 +3,12 @@
  * @see https://angular.io/docs/ts/latest/api/platform-browser-dynamic/index/bootstrap-function.html
  */
 import { enableProdMode } from '@angular/core';
-import { platformBrowser } from '@angular/platform-browser';
-
-import { WebModuleNgFactory } from './web.module.ngfactory';
+// import { platformBrowser } from '@angular/platform-browser';
+// import { WebModuleNgFactory } from './web.module.ngfactory';
 
 enableProdMode();
 
-platformBrowser().bootstrapModuleFactory(WebModuleNgFactory);
+// platformBrowser().bootstrapModuleFactory(WebModuleNgFactory);
 
 // In order to start the Service Worker located at "./worker.js"
 // uncomment this line. More about Service Workers here

@@ -11,7 +11,7 @@ import Config from '../../config';
  * the `src/client` directory.
  */
 export = (done: any) => {
-  deleteAndWalk(Config.APP_SRC);
+  deleteAndWalk(Config.APP_CLIENT_SRC);
   done();
 };
 
