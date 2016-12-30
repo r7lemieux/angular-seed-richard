@@ -34,16 +34,16 @@ if (isProd) {
   );
 }
 
-const appSCSSFiles      = join(Config.APP_SRC, '**', '*.scss');
+const appSCSSFiles      = join(Config.APP_CLIENT_SRC, '**', '*.scss');
 const entrySCSSFiles    = join(Config.CSS_SRC, '**', '*.scss');
 const abtractSCSSFiles  = join(Config.SCSS_SRC, '**', '*.scss');
 
 /**
- * Copies all HTML files in `src/client` over to the `dist/tmp` directory.
+ * Copies all HTML files in `src/client` over to the `dist/client_tmp` directory.
  */
 function prepareTemplates() {
-  return gulp.src(join(Config.APP_SRC, '**', '*.html'))
-    .pipe(gulp.dest(Config.TMP_DIR));
+  return gulp.src(join(Config.APP_CLIENT_SRC, '**', '*.html'))
+    .pipe(gulp.dest(Config.TMP_CLIENT_DIR));
 }
 
 /**
@@ -73,7 +73,7 @@ function processComponentScss() {
         return `${Config.APP_BASE}${file.relative}.map`;
       }
     }))
-    .pipe(gulp.dest(isProd ? Config.TMP_DIR : Config.APP_DEST));
+    .pipe(gulp.dest(isProd ? Config.TMP_CLIENT_DIR : Config.APP_CLIENT_DEST));
 }
 
 /**
@@ -96,13 +96,13 @@ function getSCSSFiles(cacheName:string, filesToCompile:string[], filesToExclude:
  */
 function processComponentCss() {
   return gulp.src([
-    join(Config.APP_SRC, '**', '*.css'),
-    '!' + join(Config.APP_SRC, 'assets', '**', '*.css')
+    join(Config.APP_CLIENT_SRC, '**', '*.css'),
+    '!' + join(Config.APP_CLIENT_SRC, 'assets', '**', '*.css')
   ])
     .pipe(isProd ? plugins.cached('process-component-css') : plugins.util.noop())
     .pipe(plugins.postcss(processors))
     .on('error', reportPostCssError)
-    .pipe(gulp.dest(isProd ? Config.TMP_DIR : Config.APP_DEST));
+    .pipe(gulp.dest(isProd ? Config.TMP_CLIENT_DIR : Config.APP_CLIENT_DEST));
 }
 
 /**

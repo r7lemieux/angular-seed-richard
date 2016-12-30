@@ -1,4 +1,4 @@
-import { clean } from '../../utils';
+import * as rimraf from 'rimraf';
 import { join } from 'path';
 
 import Config from '../../config';
@@ -10,10 +10,13 @@ import Config from '../../config';
  * need to be updated to handle the returned promise/stream
  *
  */
-export = clean([
-  'gulpfile.js',
-  'gulpfile.js.map',
-  join(Config.TOOLS_DIR, '**/*.js'),
-  join(Config.TOOLS_DIR, '**/*.js.map')
-]);
+export = () => {
+  let source = [
+    'gulpfile.js',
+    'gulpfile.js.map',
+    join(Config.TOOLS_DIR, '**/*.js'),
+    join(Config.TOOLS_DIR, '**/*.js.map'),
+  ];
 
+  return source.forEach(p => rimraf.sync(p));
+};

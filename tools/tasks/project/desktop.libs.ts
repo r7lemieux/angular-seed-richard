@@ -1,7 +1,7 @@
 import * as gulp from 'gulp';
 import { relative, join } from 'path';
 import Config from '../../config';
-var newer = require('gulp-newer');
+const newer = require('gulp-newer');
 
 export = () => {
   let src = [
@@ -20,8 +20,8 @@ export = () => {
 
   return gulp.src(src, { base: 'node_modules' })
     .pipe(newer({
-      dest: join(Config.APP_DEST + '/node_modules'),
-      map: function(path: String) { return path.replace('.ts', '.js').replace('.scss', '.css'); }
+      dest: join(Config.APP_CLIENT_DEST + '/node_modules'),
+      map: function(path: String) { return path.replace('.ts', '.js').replace('.sccs', '.css'); }
     }))
-    .pipe(gulp.dest(join(Config.APP_DEST + '/node_modules')));
+    .pipe(gulp.dest(join(Config.APP_CLIENT_DEST + '/node_modules')));
 };

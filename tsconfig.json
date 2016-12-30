@@ -29,7 +29,8 @@
     "nativescript",
     "node_modules",
     "dist",
-    "src"
+    "src",
+    "src/server/tsconfig.json"
   ],
   "compileOnSave": false
 }

@@ -25,7 +25,7 @@ export =
         Config.TOOLS_DIR + '/manual_typings/**/*.d.ts'
       ] );
       let src = [
-        join(Config.APP_SRC, '**/*.spec.ts')
+        join(Config.APP_CLIENT_SRC, '**/*.spec.ts')
       ];
 
       let projectFiles = gulp.src(src);
@@ -65,8 +65,8 @@ export =
         //    .pipe(plugins.sourcemaps.write('.', {
         //      includeContent: false,
         //      sourceRoot: (file: any) =>
-        //        relative(file.path, PROJECT_ROOT + '/' + APP_SRC).replace(sep, '/') + '/' + APP_SRC
+        //        relative(file.path, PROJECT_ROOT + '/' + APP_CLIENT_SRC).replace(sep, '/') + '/' + APP_SRC
         //    }))
-        .pipe(gulp.dest(Config.APP_DEST));
+        .pipe(gulp.dest(Config.APP_CLIENT_DEST));
     }
 };

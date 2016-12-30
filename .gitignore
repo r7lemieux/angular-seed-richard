@@ -37,9 +37,11 @@ ts-node
 
 #IDE configuration files
 .idea
+.vscode
 *.iml
 .vscode/angulardoc.json
 
+/tools/**/*.js
 dist
 dev
 docs
@@ -69,3 +71,5 @@ ChromeDebugger-UserData
 
 # OS X trash files
 .DS_Store
+src/client/app/shared/config/env.config.js
+src/client/app/shared/config/env.config.js.map

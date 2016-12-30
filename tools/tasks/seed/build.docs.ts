@@ -14,9 +14,9 @@ export = () => {
 
   let src = [
     'typings/index.d.ts',
-    join(Config.APP_SRC, '**/*.ts'),
-    '!' + join(Config.APP_SRC, '**/*.spec.ts'),
-    '!' + join(Config.APP_SRC, '**/*.e2e-spec.ts')
+    join(Config.APP_CLIENT_SRC, '**/*.ts'),
+    '!' + join(Config.APP_CLIENT_SRC, '**/*.spec.ts'),
+    '!' + join(Config.APP_CLIENT_SRC, '**/*.e2e-spec.ts')
   ];
 
   return gulp.src(src)

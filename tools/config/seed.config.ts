@@ -166,6 +166,13 @@ export class SeedConfig {
   APP_CLIENT = argv['client'] || 'client';
 
   /**
+   * The directory where the server files are located.
+   * The default directory is `server`.
+   * @type {string}
+   */
+  APP_SERVER = argv['server'] || 'server';
+
+  /**
    * The bootstrap file to be used to boot the application.
    * @type {string}
    */
@@ -184,10 +191,19 @@ export class SeedConfig {
   APP_TITLE = 'Welcome to angular-seed!';
 
   /**
+   * The base folder of the client source files.
+   * @type {string}
+   */
+  APP_CLIENT_SRC = `src/${this.APP_CLIENT}`;
+
+  /**
+   * The base folder of the server source files.
+
+  /**
    * The base folder of the applications source files.
    * @type {string}
    */
-  APP_SRC = `src/${this.APP_CLIENT}`;
+  APP_SERVER_SRC = `src/${this.APP_SERVER}`;
 
   /**
    * The name of the TypeScript project file
@@ -199,13 +215,13 @@ export class SeedConfig {
    * The folder of the applications asset files.
    * @type {string}
    */
-  ASSETS_SRC = `${this.APP_SRC}/assets`;
+  ASSETS_SRC = `${this.APP_CLIENT_SRC}/assets`;
 
   /**
    * The folder of the applications css files.
    * @type {string}
    */
-  CSS_SRC = `${this.APP_SRC}/css`;
+  CSS_SRC = `${this.APP_CLIENT_SRC}/css`;
 
   /**
    * The folder of the e2e specs and framework
@@ -216,7 +232,7 @@ export class SeedConfig {
    * The folder of the applications scss files.
    * @type {string}
    */
-  SCSS_SRC = `${this.APP_SRC}/scss`;
+  SCSS_SRC = `${this.APP_CLIENT_SRC}/scss`;
 
   /**
    * The directory of the applications tools
@@ -253,17 +269,42 @@ export class SeedConfig {
    */
   DIST_DIR = 'dist';
 
+
   /**
-   * The folder for built files in the `dev` environment.
+   * The folder for built client files in the `dev` environment.
    * @type {string}
    */
-  DEV_DEST = `${this.DIST_DIR}/dev`;
+  DEV_CLIENT_DEST = `${this.DIST_DIR}/dev/${this.APP_CLIENT}`;
+
+  /**
+   * The folder for the built client files in the `prod` environment.
+   * @type {string}
+   */
+  PROD_CLIENT_DEST = `${this.DIST_DIR}/prod/${this.APP_CLIENT}`;
+
+  /**
+   * The folder for built server files in the `dev` environment.
+   * @type {string}
+   */
+  DEV_SERVER_DEST = `${this.DIST_DIR}/dev/${this.APP_SERVER}`;
+
+  /**
+   * The folder for the built server files in the `prod` environment.
+   * @type {string}
+   */
+  PROD_SERVER_DEST = `${this.DIST_DIR}/prod/${this.APP_SERVER}`;
+
+  /**
+   * The folder for client temporary files.
+   * @type {string}
+   */
+  TMP_CLIENT_DIR = `${this.DIST_DIR}/tmp_${this.APP_CLIENT}`;
 
   /**
    * The folder for the built files in the `prod` environment.
    * @type {string}
    */
-  PROD_DEST = `${this.DIST_DIR}/prod`;
+  TMP_SERVER_DIR = `${this.DIST_DIR}/tmp_${this.APP_SERVER}`;
 
   /**
    * The folder for the built files of the e2e-specs.
@@ -275,25 +316,25 @@ export class SeedConfig {
    * The folder for temporary files.
    * @type {string}
    */
-  TMP_DIR = `${this.DIST_DIR}/tmp`;
+  APP_CLIENT_DEST = this.BUILD_TYPE === BUILD_TYPES.DEVELOPMENT ? this.DEV_CLIENT_DEST : this.PROD_CLIENT_DEST;
 
   /**
    * The folder for the built files, corresponding to the current environment.
    * @type {string}
    */
-  APP_DEST = this.BUILD_TYPE === BUILD_TYPES.DEVELOPMENT ? this.DEV_DEST : this.PROD_DEST;
+  APP_SERVER_DEST = this.BUILD_TYPE === BUILD_TYPES.DEVELOPMENT ? this.DEV_SERVER_DEST : this.PROD_SERVER_DEST;
 
   /**
    * The folder for the built CSS files.
    * @type {strings}
    */
-  CSS_DEST = `${this.APP_DEST}/css`;
+  CSS_DEST = `${this.APP_CLIENT_DEST}/css`;
 
   /**
    * The folder for the built JavaScript files.
    * @type {string}
    */
-  JS_DEST = `${this.APP_DEST}/js`;
+  JS_DEST = `${this.APP_CLIENT_DEST}/js`;
 
   /**
    * The version of the application as defined in the `package.json`.
@@ -434,8 +475,8 @@ export class SeedConfig {
       // Note that for multiple apps this configuration need to be updated
       // You will have to include entries for each individual application in
       // `src/client`.
-      [join(this.TMP_DIR, '*')]: `${this.TMP_DIR}/*`,
-      'dist/tmp/node_modules/*': 'dist/tmp/node_modules/*',
+      [join(this.TMP_CLIENT_DIR, '*')]: `${this.TMP_CLIENT_DIR}/*`,
+      'dist/tmp_client/node_modules/*': 'dist/tmp_client/node_modules/*',
       'node_modules/*': 'node_modules/*',
       '*': 'node_modules/*'
     },
@@ -548,10 +589,10 @@ export class SeedConfig {
       server: {
         baseDir: `${this.DIST_DIR}/empty/`,
         routes: {
-          [`${this.APP_BASE}${this.APP_SRC}`]: this.APP_SRC,
-          [`${this.APP_BASE}${this.APP_DEST}`]: this.APP_DEST,
+          [`${this.APP_BASE}${this.APP_CLIENT_SRC}`]: this.APP_CLIENT_SRC,
+          [`${this.APP_BASE}${this.APP_CLIENT_DEST}`]: this.APP_CLIENT_DEST,
           [`${this.APP_BASE}node_modules`]: 'node_modules',
-          [`${this.APP_BASE.replace(/\/$/, '')}`]: this.APP_DEST
+          [`${this.APP_BASE.replace(/\/$/, '')}`]: this.APP_CLIENT_DEST
         }
       }
     },
@@ -688,7 +729,7 @@ export function normalizeDependencies(deps: InjectableDependency[]) {
 
 /**
  * Returns if the given dependency is used in the given environment.
- * @param  {string}               env - The environment to be filtered for.
+ * @param  {string}               type - The environment to be filtered for.
  * @param  {InjectableDependency} d   - The dependency to check.
  * @return {boolean}                    `true` if the dependency is used in this environment, `false` otherwise.
  */
@@ -709,7 +750,7 @@ function filterDependency(type: string, d: InjectableDependency): boolean {
  * @return {number} The applications version.
  */
 function appVersion(): number | string {
-  var pkg = require('../../package.json');
+  const pkg = require('../../package.json');
   return pkg.version;
 }
 
