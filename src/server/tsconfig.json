@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "declaration": false,
     "removeComments": true,
@@ -22,10 +22,9 @@
     "types": [
     "core-js",
     "express",
-    "mocha",
     "jasmine",
     "systemjs"
   ]
   },
-  "compileOnSave": false
+  "compileOnSave": true
 }

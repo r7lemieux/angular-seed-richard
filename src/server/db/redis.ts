@@ -4,7 +4,6 @@ import * as redis from 'redis';
  * Init Names List.
  */
 export function Init() {
-  console.log('104 init redis');
 
   let RedisClient = redis.createClient();
 

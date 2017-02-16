@@ -1,8 +1,8 @@
 {
-  "test": [
-    "tslint",
-    "build.test",
-    "karma.run"
+  "server.test": [
+    "server.start",
+    "server.test",
+    "server.stop"
   ]
 }
 

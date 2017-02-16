@@ -16,7 +16,7 @@ export function watch(taskname: string, root: string = Config.APP_CLIENT_SRC) {
   return function () {
     let paths:string[]=[
       join(Config.APP_CLIENT_SRC,'**')
-      // ,join(Config.APP_SERVER_SRC,'**')
+      ,join(Config.APP_SERVER_SRC,'**')
     ].concat(Config.TEMP_FILES.map((p) => { return '!'+p; }));
 
     plugins.watch(paths, (e: any) => {

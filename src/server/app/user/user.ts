@@ -1,9 +1,7 @@
-const uuidV1 = require('uuid/v1');
-
 export class User {
 
-  public id: string;
+  public id: number;
 
-  personId: string
+  public username: string;
 
 }

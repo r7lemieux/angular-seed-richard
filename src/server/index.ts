@@ -6,27 +6,31 @@ import * as compression from 'compression';
 import * as routes1 from './routes';
 import * as routes from './app/index/routes-index';
 
-import { Init } from './db/redis';
+import { Init as initRedis } from './db/redis';
+import { initDynamo } from './db/dynamo';
+import * as BPromise from 'bluebird';
+// import * as lodash from 'lodash';
+// global._ = lodash;
+// global.BPromise = BPromise;
+
 
 var _clientDir = '../client';
 var app = express();
 
 export function init(port: number, mode: string) {
-console.trace('010 trace');
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(bodyParser.text());
   app.use(compression());
 
   // DB Init
-  Init();
-
+  initRedis();
+  initDynamo();
   /**
    * Dev Mode.
    * @note Dev server will only give for you middleware.
    */
   if (mode == 'dev') {
-    console.log('035 server/index.ts');
 
     app.all('/*', function(req, res, next) {
       res.header('Access-Control-Allow-Origin', '*');
@@ -45,11 +49,6 @@ console.trace('010 trace');
     var renderIndex = (req: express.Request, res: express.Response) => {
       res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
     };
-
-    app.get('/api/ooo1', (req, res) => {
-      console.log('040 server/index.ts response ' + res);
-      return res.json(['nnn1','nnn2','nnn3']);
-    });
 
     app.get('/*', renderIndex);
 
@@ -88,13 +87,11 @@ console.trace('010 trace');
      */
     app.get('/*', renderIndex);
   }
-  console.log('039');
 
   /**
    * Server with gzip compression.
    */
-  return new Promise<http.Server>((resolve, reject) => {
-    console.log('050 ' + port);
+  return new BPromise<http.Server>((resolve, reject) => {
 
     let server = app.listen(port, () => {
       var port = server.address().port;
